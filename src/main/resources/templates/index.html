@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="container">
+            <h2 class="mb-4">Welcome to the Task Management System</h2>
+            <p class="lead">Organize your tasks efficiently by creating, tagging, and managing them seamlessly.</p>
+            <a href="/tasks" class="btn btn-primary">Get Started with Tasks</a>
+        </div>
+    </section>
+</body>
+</html>
