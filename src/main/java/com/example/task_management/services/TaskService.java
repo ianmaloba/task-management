@@ -32,8 +32,14 @@ public class TaskService {
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());
         existingTask.setCompleted(task.isCompleted());
+    
+        if (task.getTags() != null) {
+            existingTask.setTags(task.getTags());
+        }
+    
         return taskRepository.save(existingTask);
     }
+    
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
