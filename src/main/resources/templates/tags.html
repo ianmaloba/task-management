@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
 <head>
     <title>Tags</title>
     <meta charset="UTF-8">
@@ -13,6 +11,23 @@
             <h2>Tags</h2>
             <p>View and manage tags associated with your tasks for better organization.</p>
             <a href="/tags/create" class="btn btn-success">Create New Tag</a>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tag Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tag : ${tags}">
+                        <td th:text="${tag.name}"></td>
+                        <td>
+                            <a th:href="@{/tags/edit/{id}(id=${tag.id})}" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 </body>

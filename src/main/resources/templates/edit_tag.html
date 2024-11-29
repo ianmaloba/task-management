@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<head>
+    <title>Edit Tag</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="container">
+            <h2>Edit Tag</h2>
+            <p>Modify the name of the tag and save the changes below.</p>
+
+            <!-- Tag Edit Form -->
+            <form th:action="@{/tags/edit/{id}(id=${tag.id})}" th:object="${tag}" method="post" class="form-group">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Tag Name</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Tag</button>
+                <a href="/tags" class="btn btn-secondary">Back to Tags List</a>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
