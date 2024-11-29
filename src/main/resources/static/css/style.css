@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar .search-bar {
+    width: 300px;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+}
+
+.form-control {
+    height: 35px;
+}
+
+.navbar-toggler {
+    margin-left: auto;
+}
