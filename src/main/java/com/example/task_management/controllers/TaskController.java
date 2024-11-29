@@ -85,4 +85,16 @@ public class TaskController {
         taskService.toggleTaskCompletion(id);
         return "redirect:/tasks";
     }
+
+    // Display individual task by ID
+    @GetMapping("/{id}")
+    public String viewTask(@PathVariable Long id, Model model) {
+        Task task = taskService.getTaskById(id);
+        if (task != null) {
+            model.addAttribute("task", task);
+            return "task_detail";
+        } else {
+            return "redirect:/tasks"; // If the task doesn't exist, redirect to the task list
+        }
+    }
 }

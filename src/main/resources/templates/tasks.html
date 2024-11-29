@@ -30,7 +30,10 @@
                         <!-- Loop through tasks -->
                         <tr th:each="task : ${tasks}">
                             <td th:text="${task.title}"></td>
-                            <td th:text="${task.description}"></td>
+                            <td th:text="${#strings.length(task.description) > 50 ? 
+                                #strings.substring(task.description, 0, 50) + '...' : 
+                                task.description}">
+                            </td>
                             <td>
                                 <span th:text="${task.completed ? 'Completed' : 'Not Completed'}" class="badge" 
                                       th:classappend="${task.completed ? 'bg-success' : 'bg-warning'}"></span>
@@ -43,6 +46,7 @@
                             </td>
                             <td th:text="${#temporals.format(task.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
                             <td>
+                                <a th:href="@{/tasks/{id}(id=${task.id})}" class="btn btn-sm btn-primary">View</a>
                                 <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning btn-sm">Edit</a>
                                 <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button>

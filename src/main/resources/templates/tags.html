@@ -23,7 +23,8 @@
                     <tr th:each="tag : ${tags}">
                         <td><a th:href="@{/tags/{id}(id=${tag.id})}" th:text="${tag.name}"></a></td>
                         <td>
-                            <a th:href="@{/tags/edit/{id}(id=${tag.id})}" class="btn btn-primary">Edit</a>
+                            <a th:href="@{/tags/edit/{id}(id=${tag.id})}" class="btn btn-primary">Edit Tag</a>
+                            <a th:href="@{/tags/{id}(id=${tag.id})}" class="btn btn-info">Related Tasks</a>
                         </td>
                     </tr>
                 </tbody>

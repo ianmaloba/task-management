@@ -3,6 +3,7 @@ package com.example.task_management.services;
 import com.example.task_management.models.Tag;
 import com.example.task_management.models.Task;
 import com.example.task_management.repositories.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,6 @@ public class TaskService {
     public List<Task> getTasksByTag(Tag tag) {
         return taskRepository.findByTags(tag);
     }
+
 }
 
