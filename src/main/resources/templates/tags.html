@@ -21,7 +21,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="tag : ${tags}">
-                        <td th:text="${tag.name}"></td>
+                        <td><a th:href="@{/tags/{id}(id=${tag.id})}" th:text="${tag.name}"></a></td>
                         <td>
                             <a th:href="@{/tags/edit/{id}(id=${tag.id})}" class="btn btn-primary">Edit</a>
                         </td>

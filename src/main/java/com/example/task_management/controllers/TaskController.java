@@ -1,5 +1,6 @@
 package com.example.task_management.controllers;
 
+import com.example.task_management.models.Tag;
 import com.example.task_management.models.Task;
 import com.example.task_management.services.TaskService;
 import com.example.task_management.services.TagService;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/tasks")
@@ -35,8 +38,16 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String createTask(@ModelAttribute Task task) {
-        taskService.createTask(task);
+    public String createTask(@ModelAttribute Task task, @RequestParam(value = "tags", required = false) List<Long> tagIds) {
+        if (tagIds != null) {
+            Set<Tag> tags = new HashSet<>();
+            for (Long tagId : tagIds) {
+                Tag tag = tagService.getTagById(tagId);
+                tags.add(tag);
+            }
+            task.setTags(tags);  // Set the tags on the task
+        }
+        taskService.createTask(task);  // Save the task with tags
         return "redirect:/tasks";
     }
 
@@ -49,8 +60,16 @@ public class TaskController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editTask(@PathVariable Long id, @ModelAttribute Task task) {
-        taskService.updateTask(id, task);
+    public String editTask(@PathVariable Long id, @ModelAttribute Task task, @RequestParam(value = "tags", required = false) List<Long> tagIds) {
+        if (tagIds != null) {
+            Set<Tag> tags = new HashSet<>();
+            for (Long tagId : tagIds) {
+                Tag tag = tagService.getTagById(tagId);
+                tags.add(tag);
+            }
+            task.setTags(tags);  // Set the tags on the task
+        }
+        taskService.updateTask(id, task);  // Update the task with new tags
         return "redirect:/tasks";
     }
 
@@ -67,5 +86,3 @@ public class TaskController {
         return "redirect:/tasks";
     }
 }
-
-

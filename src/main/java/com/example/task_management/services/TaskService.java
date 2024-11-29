@@ -1,5 +1,6 @@
 package com.example.task_management.services;
 
+import com.example.task_management.models.Tag;
 import com.example.task_management.models.Task;
 import com.example.task_management.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class TaskService {
         Task task = getTaskById(id);
         task.setCompleted(!task.isCompleted());
         taskRepository.save(task);
+    }
+    // Fetch tasks by a specific tag
+    public List<Task> getTasksByTag(Tag tag) {
+        return taskRepository.findByTags(tag);
     }
 }
 

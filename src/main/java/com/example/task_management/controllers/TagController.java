@@ -1,11 +1,15 @@
 package com.example.task_management.controllers;
 
 import com.example.task_management.models.Tag;
+import com.example.task_management.models.Task;
 import com.example.task_management.services.TagService;
+import com.example.task_management.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/tags")
@@ -13,6 +17,9 @@ public class TagController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private TaskService taskService;
 
     // Display all tags
     @GetMapping
@@ -49,5 +56,15 @@ public class TagController {
         tag.setId(id);
         tagService.saveTag(tag);
         return "redirect:/tags";
+    }
+
+    // Display tasks associated with a specific tag
+    @GetMapping("/{id}")
+    public String viewTagTasks(@PathVariable Long id, Model model) {
+        Tag tag = tagService.getTagById(id);
+        List<Task> tasks = taskService.getTasksByTag(tag);
+        model.addAttribute("tag", tag);
+        model.addAttribute("tasks", tasks);
+        return "tag_tasks";
     }
 }

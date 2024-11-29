@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{base}">
+<head>
+    <title>Tasks for Tag</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="container">
+            <h2 class="mb-4">Tasks for Tag: <span th:text="${tag.name}"></span></h2>
+            <div th:if="${tasks.isEmpty()}" class="alert alert-info">
+                <p>No tasks found for this tag.</p>
+            </div>
+            <div th:if="${not tasks.isEmpty()}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Task Title</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="task : ${tasks}">
+                            <td th:text="${task.title}"></td>
+                            <td>
+                                <span th:text="${task.completed ? 'Completed' : 'Incomplete'}" 
+                                      th:class="${task.completed ? 'badge bg-success' : 'badge bg-warning'}">
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{/tasks/{id}(id=${task.id})}" class="btn btn-sm btn-primary">View Task</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a href="/tags" class="btn btn-secondary">Back to All Tags</a>
+        </div>
+    </section>
+</body>
+</html>

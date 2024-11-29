@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{base}">
 <head>
     <title>Create Tag</title>
     <meta charset="UTF-8">
 </head>
 <body>
-    <h2>Create New Tag</h2>
-    <form th:action="@{/tags/create}" th:object="${tag}" method="post">
-        <div>
-            <label for="name">Tag Name</label>
-            <input type="text" id="name" th:field="*{name}" required>
+    <section layout:fragment="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Create New Tag</h2>
+                    <form th:action="@{/tags/create}" th:object="${tag}" method="post" class="form-group">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Tag Name</label>
+                            <input type="text" id="name" th:field="*{name}" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Tag</button>
+                        <a href="/tags" class="btn btn-secondary ms-2">Back to Tags List</a>
+                    </form>
+                </div>
+            </div>
         </div>
-        <button type="submit">Create Tag</button>
-    </form>
-    <a href="/tags">Back to Tags List</a>
+    </section>
 </body>
 </html>
