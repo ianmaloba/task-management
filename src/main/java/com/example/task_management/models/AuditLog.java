@@ -21,10 +21,6 @@ public class AuditLog {
     @Column(nullable = false)
     private String details;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -70,14 +66,6 @@ public class AuditLog {
         this.details = details;
     }
 
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
@@ -85,5 +73,4 @@ public class AuditLog {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 }

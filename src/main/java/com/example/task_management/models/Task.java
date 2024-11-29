@@ -26,10 +26,6 @@ public class Task {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @ManyToMany
     @JoinTable(
         name = "task_tags",
@@ -49,7 +45,7 @@ public class Task {
         updatedAt = LocalDateTime.now();
     }
 
-
+    // Getters and setters
     public Long getId() {
         return this.id;
     }
@@ -102,14 +98,6 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Set<Tag> getTags() {
         return this.tags;
     }
@@ -117,5 +105,4 @@ public class Task {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
-    
 }
