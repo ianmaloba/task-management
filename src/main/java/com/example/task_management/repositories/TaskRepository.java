@@ -12,4 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     // Find tasks by their associated tag
     List<Task> findByTags(Tag tag);
+
+    // Find tasks by title or description containing the search query (case-insensitive)
+    List<Task> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String title, String description);
+
 }

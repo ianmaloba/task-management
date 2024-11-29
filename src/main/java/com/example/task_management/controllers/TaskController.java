@@ -97,4 +97,12 @@ public class TaskController {
             return "redirect:/tasks"; // If the task doesn't exist, redirect to the task list
         }
     }
+
+    // Search tasks by query
+    @GetMapping("/search")
+    public String searchTasks(@RequestParam("query") String query, Model model) {
+        List<Task> tasks = taskService.searchTasks(query);
+        model.addAttribute("tasks", tasks);
+        return "tasks";
+    }
 }

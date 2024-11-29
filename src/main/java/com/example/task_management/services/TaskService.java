@@ -54,6 +54,10 @@ public class TaskService {
     public List<Task> getTasksByTag(Tag tag) {
         return taskRepository.findByTags(tag);
     }
+    // Search tasks by title or description
+    public List<Task> searchTasks(String query) {
+        return taskRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
+    }  
 
 }
 
