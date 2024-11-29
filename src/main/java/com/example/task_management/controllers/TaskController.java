@@ -54,10 +54,18 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return "redirect:/tasks";
     }
+
+    // Method to toggle task completion
+    @PostMapping("/toggle/{id}")
+    public String toggleTaskCompletion(@PathVariable Long id) {
+        taskService.toggleTaskCompletion(id);
+        return "redirect:/tasks";
+    }
 }
+
 

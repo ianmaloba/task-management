@@ -17,23 +17,30 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public Task createTask(Task task) {
+        return taskRepository.save(task);
+    }
+
     public Task getTaskById(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid task id"));
+        return taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
-    public void createTask(Task task) {
-        taskRepository.save(task);
-    }
-
-    public void updateTask(Long id, Task task) {
+    public Task updateTask(Long id, Task task) {
         Task existingTask = getTaskById(id);
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());
-        existingTask.setTags(task.getTags());
-        taskRepository.save(existingTask);
+        existingTask.setCompleted(task.isCompleted());
+        return taskRepository.save(existingTask);
     }
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public void toggleTaskCompletion(Long id) {
+        Task task = getTaskById(id);
+        task.setCompleted(!task.isCompleted());
+        taskRepository.save(task);
+    }
 }
+

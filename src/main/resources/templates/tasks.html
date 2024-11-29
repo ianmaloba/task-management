@@ -13,6 +13,45 @@
             <h2>Tasks</h2>
             <p>Manage all your tasks here. Create, update, and delete tasks as needed.</p>
             <a href="/tasks/create" class="btn btn-success">Create New Task</a>
+
+            <!-- Task List Table -->
+            <div class="task-list mt-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Completed</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through tasks -->
+                        <tr th:each="task : ${tasks}">
+                            <td th:text="${task.title}"></td>
+                            <td th:text="${task.description}"></td>
+                            <td>
+                                <span th:text="${task.completed ? 'Completed' : 'Not Completed'}" class="badge" 
+                                      th:classappend="${task.completed ? 'bg-success' : 'bg-warning'}"></span>
+                                <!-- Toggle Complete/Incomplete Button -->
+                                <form th:action="@{/tasks/toggle/{id}(id=${task.id})}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-info btn-sm">
+                                        <span th:text="${task.completed ? 'Mark Incomplete' : 'Mark Complete'}"></span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td th:text="${#temporals.format(task.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning btn-sm">Edit</a>
+                                <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 </body>
