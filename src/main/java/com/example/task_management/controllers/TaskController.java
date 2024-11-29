@@ -1,7 +1,6 @@
 package com.example.task_management.controllers;
 
 import com.example.task_management.models.Task;
-import com.example.task_management.models.Tag;
 import com.example.task_management.services.TaskService;
 import com.example.task_management.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
