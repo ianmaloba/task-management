@@ -25,6 +25,17 @@
                     <input class="form-control me-2" type="search" placeholder="Search Tasks" aria-label="Search" name="query">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:if="${#authentication.principal == 'anonymousUser'}" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:if="${#authentication.principal == 'anonymousUser'}" href="/signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:if="${#authentication.principal != 'anonymousUser'}" href="/logout">Logout</a>
+                    </li>
+                </ul>                
             </div>
         </div>
     </nav>
