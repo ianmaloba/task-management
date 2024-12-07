@@ -1,8 +1,8 @@
-# Task Management API with Tags
+# Task Management API with Tags and Authentication
 
 ## Overview
 
-The **Task Management API** built with **Spring Boot** allows users to create, manage, and organize tasks with tags. It includes features for task creation, updating, deletion, filtering, and audit logging.
+The **Task Management API** built with **Spring Boot** allows users to create, manage, and organize tasks with tags. It includes features for task creation, updating, deletion, filtering, audit logging, and authentication to secure user operations.
 
 
 ---
@@ -25,6 +25,12 @@ The **Task Management API** built with **Spring Boot** allows users to create, m
 ### **Audit Logs**
 - **Track Changes**: Record all changes made to tasks and tags.
 - **View Logs**: Access logs of who made changes and when.
+
+### **Authentication & Authorization**
+- **User Registration**: Create new users with email and password.
+- **User Login**: Login using credentials to generate a JWT (JSON Web Token).
+- **Role-Based Access Control (RBAC)**: Users have different roles (e.g., Admin, User) with specific permissions for creating, updating, and deleting tasks or tags.
+- **JWT Token Authentication**: Secure API endpoints with JWT tokens for authentication.
 
 ---
 
@@ -78,10 +84,14 @@ Vist at http://localhost:8080.
 
 Open http://localhost:8080/swagger-ui.html to explore the API documentation.
 
-   
-### **Setup Instructions**
-
 ### **API Endpoints**
+#### **User Authentication Endpoints**
+
+| Method | Endpoint              | Description                           |
+|--------|-----------------------|---------------------------------------|
+| POST    | /api/auth/register  | Register a new user                   |
+| POST    | /api/auth/login     | Login to get JWT token             |
+
 
 #### **Task Endpoints**
 
@@ -113,8 +123,6 @@ Open http://localhost:8080/swagger-ui.html to explore the API documentation.
 ### **Search Functionality**
 
 To search for tasks, use the `/api/tasks/search` endpoint. Supported query parameters:
-
-Ensure you have the following installed:
 - **title**: Search by task title.
 - **description**: Search by task description.
 - **tags**: Search tasks associated with specific tags.
@@ -128,72 +136,80 @@ Ensure you have the following installed:
 ### **Directory Structure**
 
 ```plaintext
-📦 task-management
-├─ .gitattributes
-├─ .gitignore
-├─ .mvn
-│  └─ wrapper
-│     └─ maven-wrapper.properties
-├─ mvnw
-├─ mvnw.cmd
-├─ pom.xml
-└─ src
-   ├─ main
-   │  ├─ java
-   │  │  └─ com
-   │  │     └─ example
-   │  │        └─ task_management
-   │  │           ├─ TaskManagementApplication.java
-   │  │           ├─ config
-   │  │           │  ├─ SecurityConfig.java
-   │  │           │  └─ SwaggerConfig.java
-   │  │           ├─ controllers
-   │  │           │  ├─ AuditLogController.java
-   │  │           │  ├─ HomeController.java
-   │  │           │  ├─ TagController.java
-   │  │           │  └─ TaskController.java
-   │  │           ├─ models
-   │  │           │  ├─ AuditLog.java
-   │  │           │  ├─ Tag.java
-   │  │           │  └─ Task.java
-   │  │           ├─ repositories
-   │  │           │  ├─ AuditLogRepository.java
-   │  │           │  ├─ TagRepository.java
-   │  │           │  └─ TaskRepository.java
-   │  │           └─ services
-   │  │              ├─ AuditService.java
-   │  │              ├─ TagService.java
-   │  │              └─ TaskService.java
-   │  └─ resources
-   │     ├─ application.properties
-   │     ├─ static
-   │     │  └─ css
-   │     │     └─ style.css
-   │     └─ templates
-   │        ├─ base.html
-   │        ├─ create_tag.html
-   │        ├─ create_task.html
-   │        ├─ edit_tag.html
-   │        ├─ edit_task.html
-   │        ├─ index.html
-   │        ├─ tag_tasks.html
-   │        ├─ tags.html
-   │        ├─ task_detail.html
-   │        └─ tasks.html
-   └─ test
-      └─ java
-         └─ com
-            └─ example
-               └─ task_management
-                  └─ TaskManagementApplicationTests.java
+📦 task-management  
+├── .gitattributes  
+├── .gitignore  
+├── .mvn  
+│   └── wrapper  
+│       └── maven-wrapper.properties  
+├── LICENSE  
+├── README.md  
+├── mvnw  
+├── mvnw.cmd  
+├── pom.xml  
+└── src  
+    ├── main  
+    │   ├── java  
+    │   │   └── com  
+    │   │       └── example  
+    │   │           └── task_management  
+    │   │               ├── TaskManagementApplication.java  
+    │   │               ├── config  
+    │   │               │   ├── SecurityConfig.java  
+    │   │               │   └── SwaggerConfig.java  
+    │   │               ├── controllers  
+    │   │               │   ├── AuditLogController.java  
+    │   │               │   ├── AuthController.java  
+    │   │               │   ├── HomeController.java  
+    │   │               │   ├── TagController.java  
+    │   │               │   └── TaskController.java  
+    │   │               ├── models  
+    │   │               │   ├── AuditLog.java  
+    │   │               │   ├── Tag.java  
+    │   │               │   ├── Task.java  
+    │   │               │   └── User.java  
+    │   │               ├── repositories  
+    │   │               │   ├── AuditLogRepository.java  
+    │   │               │   ├── TagRepository.java  
+    │   │               │   ├── TaskRepository.java  
+    │   │               │   └── UserRepository.java  
+    │   │               └── services  
+    │   │                   ├── AuditService.java  
+    │   │                   ├── CustomUserDetailsService.java  
+    │   │                   ├── TagService.java  
+    │   │                   ├── TaskService.java  
+    │   │                   └── UserService.java  
+    │   └── resources  
+    │       ├── application.properties  
+    │       ├── static  
+    │       │   └── css  
+    │       │       └── style.css  
+    │       └── templates  
+    │           ├── base.html  
+    │           ├── create_tag.html  
+    │           ├── create_task.html  
+    │           ├── edit_tag.html  
+    │           ├── edit_task.html  
+    │           ├── index.html  
+    │           ├── login.html  
+    │           ├── signup.html  
+    │           ├── tag_tasks.html  
+    │           ├── tags.html  
+    │           ├── task_detail.html  
+    │           └── tasks.html  
+    └── test  
+        └── java  
+            └── com  
+                └── example  
+                    └── task_management  
+                        └── TaskManagementApplicationTests.java  
+
 ```
 
 ### **Features in Development**
 - **Pagination:** For handling large datasets efficiently.
 - **Advanced Audit Logging:** Include the ability to export logs to CSV or PDF.
-- **User Authentication:** Role-based access control to secure operations.
 
 ### **License**
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://github.com/ianmaloba/task-management/blob/main/LICENSE).
 
- 
